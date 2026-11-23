@@ -1,0 +1,115 @@
+/*  Credits (put them here if need be)
+*/
+
+/* variables for color scheme and stuff, very useful for knowing what color should go with what element on the page */
+:root {
+    --border-radius: 5px;
+    --button-color: #e1e5f2;
+    --text-color: #000000;
+    --placeholder-color: rgb(96, 95, 95);
+    --main-bg-color: #011638;
+    --navbar-color: #12245d;
+}
+
+/* font faces I was experimenting with. They're located in the styles/fonts dir */
+@font-face {
+    font-family: Nippo;
+    src: url(./fonts/Nippo-Regular.otf);
+}
+
+@font-face {
+    font-family: Nippo-Med;
+    src: url(./fonts/Nippo-Medium.otf);
+}
+
+@font-face {
+    font-family: Tahoma;
+    src: url(./fonts/tahoma.ttf);
+}
+
+@font-face {
+    font-family: JetBrains Mono;
+    src: url(./fonts/JetBrainsMono-Bold.otf);
+}
+
+* {
+    font-family: "JetBrains Mono";
+    font-size: small;
+    color: var(--text-color);
+    word-spacing: -0.2em;
+}
+
+body {
+    background-color: var(--main-bg-color);
+}
+
+.navbar {
+    background: var(--navbar-color);
+    border-radius: var(--border-radius);
+}
+
+#search-bar {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: var(--border-radius);
+    border: none;
+    margin-right: 0.5em;
+    width: max-content;
+}
+
+#search-bar::placeholder {
+    color: rgb(66, 66, 66);
+}
+
+#search-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    text-align: center;
+    margin-left: 0.5em;
+    width: 4em;
+    height: 3em;
+}
+
+#platform-filter, #genre-filter {
+    margin-left: 0.5em;
+    width: auto;
+    height: 3em;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: var(--border-radius);
+    border: none;
+    transition: border-color 1s ease-in-out;
+}
+
+option {
+    color: white;
+}
+
+option::disabled {
+    font-style: italic;
+}
+
+.genre-option, .platform-option {
+    font-size: x-small;
+    white-space: normal;
+    color: white;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(105, 104, 104, 0.2);
+    color: var(--text-color);
+    
+}
+
+#filter-btn  {
+    background-color: var(--button-color);
+    font-size: small;
+    align-items: center;
+    color: var(--text-color);
+}
+
+#search-filter:hover {
+    border-color: white;
+}
+
