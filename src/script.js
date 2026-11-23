@@ -64,6 +64,9 @@ $(function () {
         }
     }
 
+    //fetches games from the API. sets the url based on what the user put down and then fetches it.
+    //it searches the first 3 pages of results where it then prints the games that have a metacritic rating to the console (so far)
+    //TODO: make a game element (grid element and possibly modal?) with picture, title, add to library button, etc.
     async function getGames(query) {
         let games = [];
         let url = "";
@@ -93,6 +96,7 @@ $(function () {
             url = API_URL + "key=" + API_KEY + "&platforms=" + platformFilter + "&genres=" + genreFilter;
         }
 
+        //if the url; i.e. if the input box or filters are empty, then return
         if (!url) {
             return;
         }
@@ -100,18 +104,18 @@ $(function () {
         console.log("Search URL: " + url);
 
         try {
-            const numPagesToSearch = 3;
             let i = 0;
-
+            const numPagesToSearch = 3;
+            
             while(i < numPagesToSearch) {
-                const response = await fetch(url); //fetches url plus platform and genre filters
+                const response = await fetch(url); //fetches url based on what user put down
                 
                 if (!response.ok) {
                     throw new Error(response);
                 }     
 
                 const search = await response.json();
-                const results = search.results;
+                const results = search.results; //games are located in this results variable.
 
                 //filters out games in the search results that don't have a metacritic rating
                 for (let i = 0; i < results.length; i++) {
@@ -120,7 +124,7 @@ $(function () {
                     } 
                 }
                 
-                url = search.next;
+                url = search.next; //goes to the next url 
                 i++;
             }
             
@@ -138,7 +142,7 @@ $(function () {
 
     $("#search-btn").on("click", function() {
         //get filters/and or search term to get query set up for searching
-        //console.log($("#search").val().trim().toLowerCase());
+        
         if(searchBar.val() === "") {
             query = "";
             console.log("No query in input box");
@@ -146,16 +150,18 @@ $(function () {
             query = searchBar.val().trim().toLowerCase().replaceAll(" ", "%");
             console.log(query);
         }
-
+        
         if(!(platformFilter === "")) { console.log("Platform filter: " + platformFilter); }
         if(!(genreFilter === "" )) { console.log("Genre filter: " + genreFilter); }
         if(platformFilter === "" && genreFilter === "") { console.log("No filters were selected"); }
 
         statusEl.text("Loading games...");
 
+        //resets filter elements so user can select them again.
         genreFilterEl.val("");
         platformFilterEl.val("");
 
+        //gets the games based on the query
         getGames(query);
         
     });
